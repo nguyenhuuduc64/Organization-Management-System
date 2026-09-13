@@ -1,6 +1,12 @@
-const pool = require("../db");
+import pool = require("../../db");
+import { OrganizationRow } from "../../interfaces/organization.interface";
 
-const organizationRepository = {
+type OrganizationRepositoryType = {
+  findAll: () => Promise<OrganizationRow[]>;
+  findById: (id: string | number) => Promise<OrganizationRow | null>;
+};
+
+const organizationRepository: OrganizationRepositoryType = {
   findAll: async () => {
     const result = await pool.query(`
       SELECT id, name, code, status, created_at
@@ -23,4 +29,4 @@ const organizationRepository = {
   }
 };
 
-module.exports = organizationRepository;
+export = organizationRepository;

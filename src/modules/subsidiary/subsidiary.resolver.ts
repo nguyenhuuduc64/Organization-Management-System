@@ -1,5 +1,5 @@
-import subsidiaryService = require("../../service/subsidiary.service");
-import userService = require("../../service/user.service");
+import subsidiaryService = require("./subsidiary.service");
+import userService = require("../user/user.service");
 import { SubsidiaryDTO } from "../../interfaces/subsidiary.interface";
 import { UserDTO } from "../../interfaces/user.interface";
 type SubsidiaryResolvers = {

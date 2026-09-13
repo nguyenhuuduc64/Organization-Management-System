@@ -1,5 +1,5 @@
-import type { OrganizationDTO, OrganizationRow } from "../interfaces/organization.interface";
-const organizationRepository = require("../repository/organization.repository");
+import type { OrganizationDTO, OrganizationRow } from "../../interfaces/organization.interface";
+import organizationRepository = require("./organization.repository");
 type OrganizationServiceType = {
   getAllOrganizations: () => Promise<OrganizationDTO[]>;
   getOrganizationById: (id: string) => Promise<OrganizationDTO | null>;
@@ -9,7 +9,7 @@ type OrganizationServiceType = {
 const organizationService: OrganizationServiceType = {
   getAllOrganizations: async () => {
     const rows = await organizationRepository.findAll();
-    return rows.map((row: any) => ({
+    return rows.map((row: OrganizationRow) => ({
       id: row.id,
       name: row.name,
       code: row.code,

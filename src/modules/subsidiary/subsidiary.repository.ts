@@ -1,6 +1,13 @@
-const pool = require("../db");
+import pool = require("../../db");
+import { SubsidiaryRow } from "../../interfaces/subsidiary.interface";
 
-const subsidiaryRepository = {
+type SubsidiaryRepositoryType = {
+    getAll: () => Promise<SubsidiaryRow[]>;
+    getById: (id: number) => Promise<SubsidiaryRow | null>;
+    getByOrganizationId: (organizationId: number) => Promise<SubsidiaryRow[]>;
+}
+
+const subsidiaryRepository: SubsidiaryRepositoryType = {
     getAll: async () => {
         const result = await pool.query(`
             SELECT
@@ -39,4 +46,4 @@ const subsidiaryRepository = {
     }
 }
 
-module.exports = subsidiaryRepository;
+export = subsidiaryRepository;

@@ -1,8 +1,17 @@
-import { UserRequestDTO } from "../dto/request/user";
+import { UserRequestDTO } from "./dto/request/user";
 
-const pool = require("../db");
+import pool = require("../../db");
+import { UserRow } from "../../interfaces/user.interface";
 
-const userRepository = {
+type UserRepositoryType = {
+    getAll: () => Promise<UserRow[]>;
+    getById: (id: number) => Promise<UserRow | null>;
+    getBySubsidiaryId: (subsidiaryId: number) => Promise<UserRow[]>;
+    findByEmail: (email: string) => Promise<UserRow | null>;
+    save: (user: UserRequestDTO) => Promise<UserRow>;
+}
+
+const userRepository: UserRepositoryType = {
     getAll: async () => {
         const result = await pool.query(`
             SELECT

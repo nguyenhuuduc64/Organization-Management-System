@@ -1,17 +1,18 @@
-import { UserRequestDTO } from "../dto/request/user";
-import userRepository = require("../repository/user.repository");
-import { UserResponseDTO } from "../dto/response/user";
+import { UserRequestDTO } from "./dto/request/user";
+import userRepository = require("./user.repository");
+import { UserResponseDTO } from "./dto/response/user";
+import { UserRow } from "../../interfaces/user.interface";
 type UserServiceType = {
-    getAllUsers: () => Promise<any[]>;
-    getUserById: (id: number) => Promise<any | null>;
-    getBySubsidiaryId: (subsidiaryId: number) => Promise<any[]>;
+    getAllUsers: () => Promise<UserResponseDTO[]>;
+    getUserById: (id: number) => Promise<UserResponseDTO | null>;
+    getBySubsidiaryId: (subsidiaryId: number) => Promise<UserResponseDTO[]>;
     createUser: (user: UserRequestDTO) => Promise<UserResponseDTO>;
 }
 
 const userService: UserServiceType = {
     getAllUsers: async () => {
         const rows = await userRepository.getAll();
-        return rows.map((row: any) => ({
+        return rows.map((row: UserRow) => ({
             id: row.id,
             email: row.email,
             status: row.status,
@@ -22,19 +23,22 @@ const userService: UserServiceType = {
         }));
     }, 
     getUserById: async (id: number) => {
-        const rows = await userRepository.getById(id);
-        if (rows.length === 0) return null;
-        const row = rows[0];
+        const row = await userRepository.getById(id);
+        if (!row) return null;
         return {
             id: row.id,
             email: row.email,
             status: row.status,
             createdAt: row.created_at,
+            subsidiaryId: row.subsidiary_id,
+            fullName: row.full_name,
+            role: row.role,
+            password_hash: row.password_hash,
         };
     },
     getBySubsidiaryId: async (subsidiaryId: number) => {
         const rows = await userRepository.getBySubsidiaryId(subsidiaryId);
-        return rows.map((row: any) => ({
+        return rows.map((row: UserRow) => ({
             id: row.id,
             email: row.email,
             status: row.status,

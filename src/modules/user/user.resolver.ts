@@ -1,7 +1,7 @@
-import userService = require("../../service/user.service");
+import userService = require("./user.service");
 import { UserDTO } from "../../interfaces/user.interface";
-import { UserResponseDTO } from "../../dto/response/user";
-import { UserRequestDTO } from "../../dto/request/user";
+import { UserResponseDTO } from "./dto/response/user";
+import { UserRequestDTO } from "./dto/request/user";
 type UserResolvers = {
     Query: {
         users: () => Promise<UserDTO[]>;

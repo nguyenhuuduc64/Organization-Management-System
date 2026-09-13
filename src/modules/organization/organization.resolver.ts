@@ -1,5 +1,5 @@
-import organizationService = require("../../service/organization.service");
-import subsidiaryService from "../../service/subsidiary.service";
+import organizationService = require("./organization.service");
+import subsidiaryService from "../subsidiary/subsidiary.service";
 import { OrganizationDTO } from '../../interfaces/organization.interface';
 import { SubsidiaryDTO } from "../../interfaces/subsidiary.interface";
 type OrganizationResolvers = {
